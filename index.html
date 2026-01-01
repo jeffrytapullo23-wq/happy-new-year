@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Año Nuevo 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #ffd1dc, #e0c3fc);
+    overflow: hidden;
+}
+
+/* corazones flotando */
+.corazon-fondo {
+    position: absolute;
+    color: rgba(255,255,255,0.6);
+    animation: flotar 10s linear infinite;
+}
+
+@keyframes flotar {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+/* pantalla inicial */
+#inicio {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sobre {
+    width: 200px;
+    height: 130px;
+    background: #f7a8b8;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tapa {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #f48fb1;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 0.8s;
+}
+
+.sobre.abierto .tapa {
+    transform: rotateX(180deg);
+}
+
+.corazon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    animation: latido 1.2s infinite;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); }
+    60% { transform: scale(1); }
+}
+
+/* carta */
+#contenedor {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.carta {
+    background: white;
+    width: 420px;
+    max-width: 90%;
+    padding: 35px;
+    border-radius: 18px;
+    text-align: center;
+    animation: aparecer 0.8s ease;
+}
+
+@keyframes aparecer {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.titulo {
+    color: #ff2f92;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#texto {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+button {
+    background: #ff2f92;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #e91e63;
+}
+
+/* sorpresa */
+#sorpresa {
+    display: none;
+    margin-top: 20px;
+}
+
+#sorpresa img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+video {
+    width: 100%;
+    border-radius: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<25;i++){
+  let c=document.createElement("div");
+  c.className="corazon-fondo";
+  c.innerHTML="💗";
+  c.style.left=Math.random()*100+"vw";
+  c.style.fontSize=(10+Math.random()*20)+"px";
+  c.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(c);
+}
+</script>
+
+<div id="inicio">
+    <div class="sobre" onclick="abrir()">
+        <div class="tapa"></div>
+        <div class="corazon">❤️</div>
+    </div>
+</div>
+
+<div id="contenedor">
+    <div class="carta">
+
+        <div class="titulo">
+            2025 se despide 👋🏻<br>
+            y 2026 llega despacito ✨
+        </div>
+
+        <div id="texto">
+            Ojalá este nuevo año te regale calma,<br>
+            sonrisas que se queden un rato más<br>
+            y momentos que den ganas de repetir.<br><br>
+
+            Que el 2026 te trate bonito,<br>
+            y que cuando sonrías sin razón,<br>
+            sepas que alguien te desea lo mejor 😌<br><br>
+
+            <strong>Feliz Año Nuevo 🎆</strong><br><br>
+
+            <strong>Con cariño,<br>Yo 🤗💙</strong>
+        </div>
+
+        <button onclick="mostrarSorpresa()">🎁 Botón sorpresa</button>
+        <button onclick="cerrar()">Cerrar carta</button>
+
+        <div id="sorpresa">
+            <img src="assets/imagen/Omega.png" alt="Sorpresa">
+            <video id="videoSorpresa" controls>
+                <source src="assets/video/video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function abrir(){
+    document.querySelector(".sobre").classList.add("abierto");
+    setTimeout(()=>{
+        document.getElementById("inicio").style.display="none";
+        document.getElementById("contenedor").style.display="flex";
+    },700);
+}
+
+function cerrar(){
+    document.getElementById("contenedor").style.display="none";
+    document.getElementById("inicio").style.display="flex";
+    document.querySelector(".sobre").classList.remove("abierto");
+    document.getElementById("sorpresa").style.display="none";
+    document.getElementById("videoSorpresa").pause();
+}
+
+function mostrarSorpresa(){
+    document.getElementById("sorpresa").style.display="block";
+    document.getElementById("videoSorpresa").play();
+}
+</script>
+
+</body>
+</html>
